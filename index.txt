@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aeryn Studio – FPV Cinematic Videos</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Font -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600;700&display=swap');
+
+    .fpv-title {
+      font-family: 'EB Garamond', Garamond, 'Times New Roman', serif;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    }
+
+    video {
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body class="bg-black text-white">
+
+<!-- ================= HERO ================= -->
+<section class="relative h-screen w-full overflow-hidden">
+
+  <video
+  id="heroVideo"
+  class="absolute inset-0 w-full h-full"
+  src="assets/videos/hero.mp4"
+  poster="assets/images/hero.jpg"
+  muted
+  loop
+  playsinline
+></video>
+
+
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-black/40"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
+    <h1 class="fpv-title text-4xl md:text-6xl mb-6">
+      Vidéos FPV Cinématiques
+    </h1>
+
+    <button
+      id="playBtn"
+      class="md:hidden flex items-center gap-3 px-6 py-3 border border-white rounded-full backdrop-blur"
+    >
+      <i class="fa-solid fa-play"></i>
+      Play video
+    </button>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="py-20 px-6 max-w-6xl mx-auto space-y-16">
+
+  <div class="grid md:grid-cols-2 gap-10">
+    <!-- Indoor -->
+    <div>
+      <h2 class="text-xl mb-4">Indoor FPV</h2>
+      <div class="w-full aspect-video rounded-xl overflow-hidden">
+        <iframe
+          class="w-full h-full"
+          src="https://www.youtube.com/embed/ciV_mI-IyGk"
+          loading="lazy"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- Outdoor -->
+    <div>
+      <h2 class="text-xl mb-4">Outdoor FPV</h2>
+      <div class="w-full aspect-video rounded-xl overflow-hidden">
+        <iframe
+          class="w-full h-full"
+          src="https://www.youtube.com/embed/Ug7Jj-iSexM"
+          loading="lazy"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PORTFOLIO ================= -->
+<section class="py-20 px-6 bg-neutral-950">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+
+    <iframe class="w-full aspect-video rounded-xl"
+      src="https://www.youtube.com/embed/ciV_mI-IyGk"
+      loading="lazy"
+      allowfullscreen></iframe>
+
+    <iframe class="w-full aspect-video rounded-xl"
+      src="https://www.youtube.com/embed/Ug7Jj-iSexM"
+      loading="lazy"
+      allowfullscreen></iframe>
+
+    <iframe class="w-full aspect-video rounded-xl"
+      src="https://www.youtube.com/embed/ciV_mI-IyGk"
+      loading="lazy"
+      allowfullscreen></iframe>
+
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="py-8 text-center text-sm text-neutral-400">
+  © 2025 Aeryn Studio — AerynStudio.com
+</footer>
+
+<!-- ================= JS ================= -->
+<script>
+  const video = document.getElementById('heroVideo');
+  const playBtn = document.getElementById('playBtn');
+
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  if (!isMobile) {
+    video.autoplay = true;
+    video.play().catch(() => {});
+  } else {
+    playBtn.addEventListener('click', () => {
+      video.play();
+      playBtn.style.display = 'none';
+    });
+  }
+</script>
+
+</body>
+</html>
