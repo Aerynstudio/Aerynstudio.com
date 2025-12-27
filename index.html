@@ -25,6 +25,168 @@
 
     video { object-fit: cover; }
 
+    #unmuteBtn {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(0,0,0,0.5);
+      padding: 0.5rem 0.75rem;
+      border-radius: 9999px;
+      color: white;
+      z-index: 60;
+      display: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+
+<body class="bg-black text-white">
+
+<!-- ===== HEADER ===== -->
+<header class="fixed top-0 left-0 w-full bg-black/80 backdrop-blur-md shadow-lg z-50">
+  <div class="max-w-7xl mx-auto h-24 flex items-center px-6">
+    <div class="flex items-center space-x-3">
+      <img src="logo-fpv.png" alt="Aeryn Studio" class="h-16">
+      <span class="ml-4 px-3 py-1 bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-full font-semibold text-sm">Marseille et alentours</span>
+    </div>
+    <nav class="ml-auto hidden md:flex items-center space-x-6 font-semibold text-gray-200">
+      <a href="#services" class="hover:text-orange-500 transition">Services</a>
+      <a href="#portfolio" class="hover:text-orange-500 transition">Portfolio</a>
+      <a href="#contact" class="hover:text-orange-500 transition">Contact</a>
+      <a href="mailto:elias.bennacer@hotmail.fr" class="ml-2 px-6 py-2 bg-gradient-to-r from-red-600 to-orange-500 rounded-full font-bold shadow-lg hover:scale-105 transition">
+         Me contacter
+      </a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="relative h-screen text-center">
+  <video id="heroVideo" class="absolute inset-0 w-full h-full" src="assets/videos/hero.mp4" poster="assets/images/hero.png" muted loop playsinline></video>
+  <div class="absolute inset-0 bg-black/40"></div>
+
+  <div class="relative z-10 flex flex-col items-center justify-center h-full px-6">
+    <h1 class="fpv-title text-5xl md:text-7xl mb-6">Vidéos FPV Cinématiques</h1>
+    <button id="playBtn" class="md:hidden flex items-center gap-3 px-6 py-3 border border-white rounded-full backdrop-blur">
+      <i class="fa-solid fa-play"></i> Play Video
+    </button>
+  </div>
+
+  <div id="unmuteBtn"><i class="fa-solid fa-volume-high"></i></div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="services" class="py-20 max-w-6xl mx-auto px-6 space-y-16">
+  <div class="grid md:grid-cols-2 gap-10">
+    <div>
+      <h2 class="text-xl mb-4">Indoor FPV</h2>
+      <div class="w-full aspect-video rounded-xl overflow-hidden">
+        <iframe class="w-full h-full" src="https://www.youtube.com/embed/ciV_mI-IyGk" loading="lazy" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div>
+      <h2 class="text-xl mb-4">Outdoor FPV</h2>
+      <div class="w-full aspect-video rounded-xl overflow-hidden">
+        <iframe class="w-full h-full" src="https://www.youtube.com/embed/Ug7Jj-iSexM" loading="lazy" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PORTFOLIO ===== -->
+<section id="portfolio" class="py-20 bg-gray-900">
+  <div class="container mx-auto text-center mb-12">
+    <h2 class="text-3xl font-bold text-orange-500">Portfolio</h2>
+  </div>
+  <div class="grid md:grid-cols-3 gap-8 container mx-auto px-6">
+    <div class="youtube-player" data-id="ciV_mI-IyGk"></div>
+    <div class="youtube-player" data-id="Ug7Jj-iSexM"></div>
+    <div class="youtube-player" data-id="sa46z0T33fc"></div>
+    <div class="youtube-player" data-id="wd4J4rbLkq8"></div>
+    <div class="youtube-player" data-id="e8Vn-SyTmEs"></div>
+    <div class="youtube-player" data-id="2Ah0EYYSVv4"></div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="py-20 bg-gradient-to-r from-black to-orange-800">
+  <div class="container mx-auto text-center mb-12">
+    <h2 class="text-3xl font-bold text-white">Contact</h2>
+  </div>
+  <div class="max-w-xl mx-auto space-y-4 text-black">
+    <p class="mb-4">Vous pouvez m'écrire directement en cliquant sur le bouton ci-dessous :</p>
+    <a href="mailto:elias.bennacer@hotmail.fr" class="inline-block w-full text-center py-3 bg-gradient-to-r from-red-600 to-orange-600 rounded font-bold">
+      Envoyer un email
+    </a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="py-6 text-center text-sm text-neutral-400">© 2025 Aeryn Studio</footer>
+
+<!-- ===== JS ===== -->
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+const video = document.getElementById('heroVideo');
+const playBtn = document.getElementById('playBtn');
+const unmuteBtn = document.getElementById('unmuteBtn');
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+video.autoplay = true;
+video.muted = true;
+video.play().catch(()=>{});
+
+if (isMobile) { playBtn.style.display = 'flex'; unmuteBtn.style.display = 'block'; }
+playBtn.addEventListener('click', () => { video.play(); playBtn.style.display='none'; });
+unmuteBtn.addEventListener('click', () => { video.muted = false; unmuteBtn.style.display = 'none'; });
+
+let players = [];
+function onYouTubeIframeAPIReady() {
+  document.querySelectorAll('.youtube-player').forEach((el, index) => {
+    players[index] = new YT.Player(el, {
+      videoId: el.dataset.id,
+      playerVars: {controls:0,modestbranding:1,rel:0,mute:1},
+      events: {
+        onReady: () => {
+          el.addEventListener('mouseenter', () => players[index].playVideo());
+          el.addEventListener('mouseleave', () => { players[index].pauseVideo(); players[index].seekTo(0); });
+        }
+      }
+    });
+  });
+}
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aeryn Studio – FPV Cinematic Videos</title>
+  <meta name="description" content="Aeryn Studio — Vidéos FPV cinématiques. Réalisations indoor et outdoor, portfolio et prestations." />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Google Font -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600;700&display=swap');
+
+    .fpv-title {
+      font-family: 'EB Garamond', Garamond, 'Times New Roman', serif;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    }
+
+    video { object-fit: cover; }
+
     /* Bouton unmute discret */
     #unmuteBtn {
       position: fixed;
@@ -49,6 +211,10 @@
   <div class="max-w-7xl mx-auto h-24 flex items-center px-6">
     <div class="flex items-center space-x-3">
       <img src="logo-fpv.png" alt="Aeryn Studio" class="h-16">
+<<<<<<< HEAD
+=======
+      <span class="ml-4 px-3 py-1 bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-full font-semibold text-sm">Marseille et alentours</span>
+>>>>>>> c188a12 (Add Marseille badge and set portfolio video IDs)
     </div>
     <nav class="ml-auto hidden md:flex items-center space-x-6 font-semibold text-gray-200">
       <a href="#services" class="hover:text-orange-500 transition">Services</a>
@@ -106,8 +272,13 @@
     <div class="youtube-player" data-id="Ug7Jj-iSexM"></div>
     <div class="youtube-player" data-id="sa46z0T33fc"></div>
     <div class="youtube-player" data-id="wd4J4rbLkq8"></div>
+<<<<<<< HEAD
     <div class="youtube-player" data-id="VIDEO_ID_5"></div>
     <div class="youtube-player" data-id="VIDEO_ID_6"></div>
+=======
+    <div class="youtube-player" data-id="e8Vn-SyTmEs"></div>
+    <div class="youtube-player" data-id="2Ah0EYYSVv4"></div>
+>>>>>>> c188a12 (Add Marseille badge and set portfolio video IDs)
   </div>
 </section>
 
