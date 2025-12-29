@@ -112,13 +112,13 @@
     <h2 class="text-3xl font-bold text-orange-500">Portfolio</h2>
   </div>
     <div class="grid md:grid-cols-3 gap-8 container mx-auto px-6">
-    <div class="youtube-player" data-id="ciV_mI-IyGk"></div>
-    <div class="youtube-player" data-id="Ug7Jj-iSexM"></div>
-    <div class="youtube-player" data-id="sa46z0T33fc"></div>
-    <div class="youtube-player" data-id="wd4J4rbLkq8"></div>
-    <div class="youtube-player" data-id="e8Vn-SyTmEs"></div>
-    <div class="youtube-player" data-id="2Ah0EYYSVv4"></div>
-  </div>
+      <iframe class="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/ciV_mI-IyGk" loading="lazy" allowfullscreen></iframe>
+      <iframe class="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/Ug7Jj-iSexM" loading="lazy" allowfullscreen></iframe>
+      <iframe class="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/sa46z0T33fc" loading="lazy" allowfullscreen></iframe>
+      <iframe class="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/wd4J4rbLkq8" loading="lazy" allowfullscreen></iframe>
+      <iframe class="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/e8Vn-SyTmEs" loading="lazy" allowfullscreen></iframe>
+      <iframe class="w-full aspect-video rounded-xl" src="https://www.youtube.com/embed/2Ah0EYYSVv4" loading="lazy" allowfullscreen></iframe>
+    </div>
 </section>
 
 <!-- ===== CONTACT ===== -->
@@ -140,7 +140,6 @@
 </footer>
 
 <!-- ===== JS ===== -->
-<script src="https://www.youtube.com/iframe_api"></script>
 <script>
 const video = document.getElementById('heroVideo');
 const playBtn = document.getElementById('playBtn');
@@ -166,23 +165,6 @@ unmuteBtn.addEventListener('click', () => {
   video.muted = false;
   unmuteBtn.style.display = 'none';
 });
-
-// YouTube hover play
-let players = [];
-function onYouTubeIframeAPIReady() {
-  document.querySelectorAll('.youtube-player').forEach((el, index) => {
-    players[index] = new YT.Player(el, {
-      videoId: el.dataset.id,
-      playerVars: {controls:0,modestbranding:1,rel:0,mute:1},
-      events: {
-        onReady: () => {
-          el.addEventListener('mouseenter', () => players[index].playVideo());
-          el.addEventListener('mouseleave', () => { players[index].pauseVideo(); players[index].seekTo(0); });
-        }
-      }
-    });
-  });
-}
 </script>
 
 </body>
